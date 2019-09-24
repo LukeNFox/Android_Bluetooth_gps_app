@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "927942527997",
+    "firebase_url": "https://gpsbluetoothdetect.firebaseio.com",
+    "project_id": "gpsbluetoothdetect",
+    "storage_bucket": "gpsbluetoothdetect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927942527997:android:8ed6ac1494f240ec1e6794",
+        "android_client_info": {
+          "package_name": "android.lukefox.bluetoothGPS"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927942527997-6b94nsm9347ee793ic5cb4mg7brf7oiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAeZZmZ-5Ls1-cxs2fsKR4-Svn3N_SWAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927942527997-6b94nsm9347ee793ic5cb4mg7brf7oiq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
