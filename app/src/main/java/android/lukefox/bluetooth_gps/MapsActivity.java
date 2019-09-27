@@ -58,6 +58,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startGettingLocations();
     }
 
+    public void onBackClick(View v) {
+        finish();
+    }
 
     /**
      * Manipulates the map once available.
