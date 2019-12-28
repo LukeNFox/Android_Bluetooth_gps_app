@@ -8,7 +8,7 @@ public class LocationData {
     public double latitude;
     public double longitude;
     public int numLocalDevices;  //variable to keep track of number of bluetooth devices available at each location
-    public ArrayList localDevices;
+    public ArrayList localDevices = new ArrayList();
     public String time;
 
     public LocationData(){}
