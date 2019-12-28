@@ -1,12 +1,14 @@
 package android.lukefox.bluetooth_gps;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class LocationData {
 
     public double latitude;
     public double longitude;
-    public int localBluetooth;  //variable to keep track og number of bluetooth devices available at each location
+    public int numLocalDevices;  //variable to keep track of number of bluetooth devices available at each location
+    public ArrayList localDevices;
     public String time;
 
     public LocationData(){}
@@ -15,7 +17,10 @@ public class LocationData {
         this.latitude=latitude;
         this.longitude=longitude;
         this.time = String.valueOf(new Date().getTime());
+        this.numLocalDevices = localDevices.size();
     }
 
-    public void getBluetoothDevices(){} // method to count number of devices at a location
+    public void getLocalDevices(){
+        //localDevices.add()
+    } // method to count number of devices at a location
 }
