@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -38,7 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap; // Google Map object resposible for the map display
     private Marker markerLocation; //Marker object to be used in the map
@@ -77,16 +79,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng eng = new LatLng(53.283912, -9.063874);
-        mMap.addMarker(new MarkerOptions().position(eng).title("Marker in Engineering building"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(eng, 10));
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 LocationData location = dataSnapshot.getValue(LocationData.class);
                 LatLng eng = new LatLng(location.latitude, location.longitude);
-                mMap.addMarker(new MarkerOptions().position(eng).title("Marker").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                mMap.addMarker(new MarkerOptions().position(eng).title(Integer.toString(location.numLocalDevices)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
             }
 
             @Override
@@ -107,14 +106,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onLocationChanged(Location location) {
         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-        addMarker(latLng);
 
         LocationData locationData = new LocationData(latLng.latitude, latLng.longitude);
         String key =  locationData.time;
         myRef.child(key).setValue(locationData);
+        addMarker(latLng,locationData);
     }
 
-    private void addMarker(LatLng latLng) {
+    private void addMarker(LatLng latLng, LocationData locationData) {
         if (latLng == null) {
             return;
         }
@@ -123,7 +122,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title("New Location");
+        markerOptions.title(Integer.toString(locationData.numLocalDevices));
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         if (mMap != null)
             markerLocation = mMap.addMarker(markerOptions);
@@ -202,7 +201,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         boolean canGetLocation = true;
         int ALL_PERMISSIONS_RESULT = 101;
         long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5;// Distance in meters
-        long MIN_TIME_BW_UPDATES = 1000 * 10 * 1;// Time in milliseconds
+        long MIN_TIME_BW_UPDATES = 1000 * 60 * 15;// Time in milliseconds
 
         ArrayList<String> permissions = new ArrayList<>();
         ArrayList<String> permissionsToRequest;
