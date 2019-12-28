@@ -23,9 +23,6 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="List of Devices" />
 
-
-        <include layout="@layout/content_list_devices" />
-
         <Button
             android:id="@+id/BackButton"
             android:layout_width="87dp"
@@ -37,5 +34,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <include layout="@layout/content_list_devices" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

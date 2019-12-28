@@ -1,23 +1,33 @@
 package android.lukefox.bluetooth_gps;
 
-import android.app.IntentService;
-import android.bluetooth.BluetoothAdapter;
+import android.app.Service;
 import android.content.Intent;
+import android.os.IBinder;
+
+import androidx.annotation.Nullable;
 
 
-public class BluetoothService extends IntentService {
+public class BluetoothService extends Service {
 
     public BluetoothService() {
 
-        super("BluetoothService");
 
     }
 
-
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    public void onCreate(){}
+
+    @Override
+    public void onStart(Intent intent, int startid) {}
+
+    @Override
+    public void onDestroy() {}
 
 
-    }
 }

@@ -8,7 +8,7 @@ public class LocationData {
     public double latitude;
     public double longitude;
     public int numLocalDevices;  //variable to keep track of number of bluetooth devices available at each location
-    public ArrayList localDevices = new ArrayList();
+    public ArrayList<Device> localDevices = new ArrayList();
     public String time;
 
     public LocationData(){}
@@ -18,9 +18,13 @@ public class LocationData {
         this.longitude=longitude;
         this.time = String.valueOf(new Date().getTime());
         this.numLocalDevices = localDevices.size();
+        addLocalDevices(new Device("Luke"));
+        addLocalDevices(new Device("Sam"));
     }
 
-    public void getLocalDevices(){
-        //localDevices.add()
-    } // method to count number of devices at a location
+    // add device to the list of devices for this location
+    public void addLocalDevices(Device device){
+        localDevices.add(device);
+        this.numLocalDevices = localDevices.size();
+    }
 }
