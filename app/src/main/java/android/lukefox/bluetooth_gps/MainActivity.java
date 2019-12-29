@@ -33,8 +33,14 @@ public class MainActivity extends AppCompatActivity {
         checkBTpermissions();
         checkLocationPermission();
         requestLocationPermissions();
+        startService();
 
     }
+
+    public void startService(){startService(new Intent(getBaseContext(), BluetoothService.class));}
+
+    public void stopService(){stopService(new Intent(getBaseContext(), BluetoothService.class));}
+
 
     public void onMapClick(View v) {
 
@@ -208,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean canAskPermission() {
         return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
     }
+
 
 }
 
