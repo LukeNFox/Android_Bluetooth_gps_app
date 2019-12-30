@@ -97,7 +97,11 @@ public class BackgroundService extends IntentService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
         getLocations();
-        discoverBluetoothDevices();
+        if(mBluetoothAdapter != null) {
+            discoverBluetoothDevices();
+        }else{
+            Toast.makeText(this, "Bluetooth Functionality is not being executed", Toast.LENGTH_LONG).show();
+        }
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         return START_STICKY;
     }
