@@ -37,6 +37,5 @@ class UniqueDevices {
         uniqueDeviceNames.addAll(devices);
     }
 
-
     }
 

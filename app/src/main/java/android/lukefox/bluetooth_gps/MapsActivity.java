@@ -1,20 +1,9 @@
 package android.lukefox.bluetooth_gps;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.core.app.ActivityCompat;
-
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,7 +36,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        startGettingLocations();
     }
 
     public void onBackClick(View v) {
@@ -83,8 +71,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 if (mMap != null)
                     mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-
             }
 
             @Override
@@ -102,82 +88,5 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     }
-
-    public void onLocationChanged(Location location) {
-//        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-//
-//        LocationData locationData = new LocationData(latLng.latitude, latLng.longitude);
-//        String key =  locationData.time;
-//        myRef.child(key).setValue(locationData);
-//        addMarker(latLng,locationData);
-    }
-
-//    private void addMarker(LatLng latLng, LocationData locationData) {
-//        if (latLng == null) {
-//            return;
-//        }
-//        if (markerLocation != null) {
-//            markerLocation.remove();
-//        }
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(latLng);
-//        markerOptions.title(Integer.toString(locationData.numLocalDevices));
-//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-//        if (mMap != null)
-//            markerLocation = mMap.addMarker(markerOptions);
-//
-//
-//        CameraPosition cameraPosition = new CameraPosition.Builder()
-//                .target(new LatLng(latLng.latitude, latLng.longitude))
-//                .zoom(1)
-//                .build();
-//
-//        if (mMap != null)
-//            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-//    }
-
-
-    private void startGettingLocations() {
-//
-//        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        boolean isGPS = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//        boolean isNetwork = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-//        boolean canGetLocation = true;
-//        long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5;// Distance in meters
-//        long MIN_TIME_BW_UPDATES = 1000 * 60 * 15;// Time in milliseconds
-//
-//
-//        if (ActivityCompat.checkSelfPermission(this,
-//                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-//                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//
-//            Toast.makeText(this, "Permission not Granted", Toast.LENGTH_SHORT).show();
-//
-//
-//            return;
-//        }
-//
-//        //Starts requesting location updates
-//        if (canGetLocation) {
-//            if (isGPS) {
-//                lm.requestLocationUpdates(
-//                        LocationManager.GPS_PROVIDER,
-//                        MIN_TIME_BW_UPDATES,
-//                        MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-//            } else if (isNetwork) {
-//                // from Network Provider
-//
-//                lm.requestLocationUpdates(
-//                        LocationManager.NETWORK_PROVIDER,
-//                        MIN_TIME_BW_UPDATES,
-//                        MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-//            }
-//        } else {
-//            Toast.makeText(this, "Can't get location", Toast.LENGTH_SHORT).show();
-//        }
-   }
-
-
 }
 

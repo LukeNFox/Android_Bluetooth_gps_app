@@ -1,8 +1,6 @@
 package android.lukefox.bluetooth_gps;
 
 import android.bluetooth.BluetoothDevice;
-import android.security.keystore.UserNotAuthenticatedException;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +22,6 @@ public class LocationData {
         this.longitude=longitude;
         this.time = String.valueOf(new Date().getTime());
         getUniqueDeviceCountAtLocation(allLocalDevices);
-
     }
 
     public void getUniqueDeviceCountAtLocation(ArrayList<BluetoothDevice> allLocalDevices){

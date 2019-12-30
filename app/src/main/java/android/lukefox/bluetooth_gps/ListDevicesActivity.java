@@ -8,9 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 
-
 import java.util.ArrayList;
-
 
 public class ListDevicesActivity extends AppCompatActivity {
 

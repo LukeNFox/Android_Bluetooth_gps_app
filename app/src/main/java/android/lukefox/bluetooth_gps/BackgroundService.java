@@ -3,7 +3,6 @@ package android.lukefox.bluetooth_gps;
 
 import android.app.IntentService;
 
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -65,10 +64,8 @@ public class BackgroundService extends IntentService {
                 localBTDevices.add(device);
                 Log.d(TAG, "onReceive: " + device.getName() + ": " + device.getAddress());
             }
-
         }
     };
-
 
     public void discoverBluetoothDevices() {
         localBTDevices = new ArrayList<>();
@@ -87,7 +84,6 @@ public class BackgroundService extends IntentService {
             registerReceiver(mBroadcastReceiver, discoverDevicesIntent);
         }
     }
-
 
     /** Called when the service is being created. */
     @Override
