@@ -74,8 +74,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 LocationData location = dataSnapshot.getValue(LocationData.class);
-                LatLng eng = new LatLng(location.latitude, location.longitude);
-                mMap.addMarker(new MarkerOptions().position(eng).title(Integer.toString(location.numLocalDevices)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                LatLng latLng = new LatLng(location.latitude, location.longitude);
+                mMap.addMarker(new MarkerOptions().position(latLng).title(Integer.toString(location.numLocalDevices)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(latLng.latitude, latLng.longitude))
+                .zoom(10)
+                .build();
+
+                if (mMap != null)
+                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
             }
 
             @Override

@@ -1,17 +1,24 @@
 package android.lukefox.bluetooth_gps;
 
-import android.app.IntentService;
-import android.app.Service;
 
+import android.app.IntentService;
+
+
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
+
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class BackgroundService extends IntentService {
 
@@ -34,9 +43,49 @@ public class BackgroundService extends IntentService {
     DatabaseReference unique = database.getReference("devices");
     LocationListener mLocationListener = new LocationListener(LocationManager.PASSIVE_PROVIDER);
 
+    BluetoothAdapter mBluetoothAdapter;
+    public ArrayList<BluetoothDevice> localBTDevices = new ArrayList<>();
+
+
 
     public BackgroundService() {
         super("BackgroundService");
+    }
+
+    /**
+     * Broadcast Receiver for listing devices that are not yet paired
+     */
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            if (action.equals(BluetoothDevice.ACTION_FOUND)){
+                BluetoothDevice device = intent.getParcelableExtra (BluetoothDevice.EXTRA_DEVICE);
+                localBTDevices.add(device);
+                Log.d(TAG, "onReceive: " + device.getName() + ": " + device.getAddress());
+            }
+
+        }
+    };
+
+
+    public void discoverBluetoothDevices() {
+        localBTDevices = new ArrayList<>();
+        if(mBluetoothAdapter.isDiscovering()){
+            mBluetoothAdapter.cancelDiscovery();
+            Log.d(TAG, "btnDiscover: Canceling discovery.");
+
+            mBluetoothAdapter.startDiscovery();
+            IntentFilter discoverDevicesIntent = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+            registerReceiver(mBroadcastReceiver, discoverDevicesIntent);
+        }
+        if(!mBluetoothAdapter.isDiscovering()){
+
+            mBluetoothAdapter.startDiscovery();
+            IntentFilter discoverDevicesIntent = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+            registerReceiver(mBroadcastReceiver, discoverDevicesIntent);
+        }
     }
 
 
@@ -44,6 +93,7 @@ public class BackgroundService extends IntentService {
     @Override
     public void onCreate() {
         getLocations();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     }
 
@@ -51,6 +101,7 @@ public class BackgroundService extends IntentService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
         getLocations();
+        discoverBluetoothDevices();
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
         return START_STICKY;
     }
@@ -77,13 +128,8 @@ public class BackgroundService extends IntentService {
             }
         }
 
-    public ArrayList<Device> getLocalDevices(){
-        ArrayList localDevices = new ArrayList<Device>();
-        localDevices.add(new Device("Brian"));
-        localDevices.add(new Device("Jim"));
-        localDevices.add(new Device("Luke"));
-        localDevices.add(new Device("John"));
-        return localDevices;
+    public ArrayList<BluetoothDevice> getLocalDevices(){
+        return localBTDevices;
     }
 
 
@@ -103,7 +149,7 @@ public class BackgroundService extends IntentService {
             myRef.child(key).setValue(locationData);
 
             UniqueDevices devices = new UniqueDevices();
-            for(Device i: getLocalDevices()) {
+            for(BluetoothDevice i: getLocalDevices()) {
                 devices.addDevice(i);
             }
             unique.setValue(devices.getUniqueDevices());
@@ -160,8 +206,6 @@ public class BackgroundService extends IntentService {
             Toast.makeText(this, "Can't get location", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
 }
 
