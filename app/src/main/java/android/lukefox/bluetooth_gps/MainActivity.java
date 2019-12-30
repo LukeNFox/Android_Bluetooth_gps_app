@@ -61,12 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 1000, pIntent);
     }
 
-    public void startService(){startService(new Intent(getBaseContext(), BluetoothService.class));}
-
-
-    public void stopService(){stopService(new Intent(getBaseContext(), BluetoothService.class));}
-
-
     public void onMapClick(View v) {
 
         Intent intent = new Intent(getBaseContext(),

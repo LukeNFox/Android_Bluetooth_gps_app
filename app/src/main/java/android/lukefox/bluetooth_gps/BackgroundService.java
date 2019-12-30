@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class BluetoothService extends IntentService {
+public class BackgroundService extends IntentService {
 
     public static int SERVICE_ID = 1;
     private LocationManager lm = null;
@@ -35,8 +35,8 @@ public class BluetoothService extends IntentService {
     LocationListener mLocationListener = new LocationListener(LocationManager.PASSIVE_PROVIDER);
 
 
-    public BluetoothService() {
-        super("BluetoothService");
+    public BackgroundService() {
+        super("BackgroundService");
     }
 
 
