@@ -1,6 +1,8 @@
 package android.lukefox.bluetooth_gps;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 class UniqueDevices {
 
@@ -12,8 +14,23 @@ class UniqueDevices {
         return devices;
     }
 
-    public static void addDevices(ArrayList devices) {
-        UniqueDevices.devices.addAll(devices);
+    public ArrayList<Device> getUniqueDevices() {
+
+        Set<String> uniqueDeviceNames = new HashSet<String>();
+
+        for(Device tempdevice: this.getDevices()) {
+            uniqueDeviceNames.add(tempdevice.getName());
+        }
+
+        ArrayList uniqueDevices = new ArrayList(uniqueDeviceNames);
+
+        return uniqueDevices;
     }
 
-}
+    public void addDevice(Device device) {
+            UniqueDevices.devices.add(device);
+        }
+
+
+    }
+

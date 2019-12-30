@@ -16,7 +16,6 @@ public class ListDevicesActivity extends AppCompatActivity {
 
     ListView listView;
     ArrayList deviceArray;
-    ArrayList nameArray = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +25,12 @@ public class ListDevicesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         UniqueDevices x = new UniqueDevices();
-        deviceArray = x.getDevices();
+        deviceArray = x.getUniqueDevices();
 
-        for(Object i : deviceArray){
-            Device device = (Device) i;
-            nameArray.add(device.getName());
-        }
+        String[] deviceSet = new String[deviceArray.size()];
 
-        String[] deviceSet = new String[nameArray.size()];
-
-        for(int i = 0; i < nameArray.size(); i++){
-            deviceSet[i] = (String) nameArray.get(i);
+        for(int i = 0; i < deviceArray.size(); i++){
+            deviceSet[i] = (String) deviceArray.get(i);
         }
 
         ListAdapter uniqueList = new ListAdapter(this, deviceSet);
